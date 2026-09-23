@@ -42,7 +42,7 @@ To bridge the gap between proven skills and real hiring opportunities by giving 
 
 ## 💡 Why This Platform Exists
 
-Thousands of people complete job simulations every day — cybersecurity labs, data challenges, business case studies, virtual internships — but most of this work is never seen by employers.
+Thousands of people complete job simulations everyday cybersecurity labs, data challenges, business case studies, virtual internships but most of this work is never seen by employers.
 
 Aganze NetworkTalent Platform changes that by making practical experience visible, searchable, and valued.
 
