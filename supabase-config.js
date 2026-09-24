@@ -1,0 +1,4 @@
+window.AGANZE_SUPABASE_CONFIG = {
+  url: 'https://ehhxekrqxmzeywcvflxz.supabase.co',
+  anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVoaHhla3JxeG16ZXl3Y3ZmbHh6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTAxMzc3NDgsImV4cCI6MjEwNTcxMzc0OH0.S2iOW_jtFyyYkP5b5MVQVGEBdFmYU2rfNuKHGF9RkS8'
+};
