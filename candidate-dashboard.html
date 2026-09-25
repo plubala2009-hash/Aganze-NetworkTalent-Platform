@@ -1,3 +1,34 @@
 <!doctype html>
-<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><meta name="description" content="Candidate dashboard."><title>Candidate dashboard | Aganze NetworkTalent Platform</title><link rel="stylesheet" href="css/style.css"></head>
-<body data-page="candidate-dashboard" data-auth-required><header class="site-header"><a class="brand" href="index.html"><img class="brand-logo" src="AGANZE LOGO.png" alt="Aganze logo"></a><nav><a href="profile.html">Profile</a><a href="upload-simulation.html">Upload work</a><a href="talent-feed.html">Explore talent</a><a href="#" data-logout>Log out</a></nav></header><main><section class="page-hero"><p class="eyebrow">DASHBOARD</p><h1>Welcome back, <span data-profile-name>there</span>.</h1><p class="lead">Track your profile and practical work.</p></section><section class="section tinted"><div class="cards three"><article class="feature-card"><h3>Profile completion</h3><p data-profile-completion>Loading…</p></article><article class="feature-card"><h3>Project visibility</h3><p data-project-count>Loading…</p></article><article class="feature-card"><h3>Account</h3><p data-user-email>Loading…</p></article></div></section></main><footer><span>© 2026 Aganze NetworkTalent Platform</span></footer><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="supabase-config.js"></script><script src="supabase-app.js"></script></body></html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Candidate dashboard and trust overview.">
+  <title>Candidate dashboard | Aganze</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+  <script defer src="supabase-app.js"></script>
+</head>
+<body data-page="candidate-dashboard" data-auth-required>
+  <header class="site-header">
+    <a class="brand" href="index.html">Aganze NetworkTalent</a>
+    <nav>
+      <a href="candidate-evidence.html">Evidence</a>
+      <a href="candidate-requests.html">Requests</a>
+      <button type="button" data-logout>Log out</button>
+    </nav>
+  </header>
+
+  <main class="section">
+    <p class="eyebrow">YOUR PROFILE</p>
+    <h1>Candidate dashboard</h1>
+    <div data-profile-status></div>
+    <p data-profile-completion>Loading profile progress…</p>
+    <h2>Evidence status</h2>
+    <div class="cards three" data-evidence-list>
+      <p>Loading evidence…</p>
+    </div>
+  </main>
+</body>
+</html>

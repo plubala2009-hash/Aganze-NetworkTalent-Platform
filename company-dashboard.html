@@ -1,3 +1,31 @@
 <!doctype html>
-<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Company dashboard | Aganze</title><link rel="stylesheet" href="css/style.css"><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="supabase-config.js"></script><script defer src="supabase-app.js"></script></head>
-<body data-page="company-dashboard" data-auth-required><header class="site-header"><a class="brand" href="index.html">Aganze NetworkTalent</a><nav><a href="talent-feed.html">Explore talent</a><button data-logout>Log out</button></nav></header><main class="section"><p class="eyebrow">EMPLOYER WORKSPACE</p><h1>Discover people by proven skills.</h1><p data-company-status>Checking company verification…</p><p data-candidate-count>Loading candidate count…</p><a class="button" href="talent-feed.html">Browse verified talent</a></main></body></html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Company dashboard | Aganze</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+  <script defer src="supabase-app.js"></script>
+</head>
+<body data-page="company-dashboard" data-auth-required>
+  <header class="site-header">
+    <a class="brand" href="index.html">Aganze NetworkTalent</a>
+    <nav>
+      <a href="talent-feed.html">Explore talent</a>
+      <a href="company-verification.html">Verification</a>
+      <a href="contact-requests.html">Requests</a>
+      <button type="button" data-logout>Log out</button>
+    </nav>
+  </header>
+
+  <main class="section">
+    <p class="eyebrow">EMPLOYER WORKSPACE</p>
+    <h1>Discover people by proven skills.</h1>
+    <div data-company-status></div>
+    <p data-candidate-count>Loading candidate count…</p>
+    <a class="button" href="talent-feed.html">Browse verified talent</a>
+  </main>
+</body>
+</html>
