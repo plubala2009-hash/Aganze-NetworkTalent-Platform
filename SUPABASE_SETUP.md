@@ -1,30 +1,33 @@
-# Supabase MVP setup
+# Production marketplace setup
 
-The website is now Supabase-ready, but it cannot create real accounts until it is connected to your Supabase project.
+This branch adds trust, privacy, moderation, discovery, and engagement primitives.
 
-## Setup
+## Database
 
-1. Create a project at https://supabase.com.
-2. In **SQL Editor**, run `supabase-schema.sql`.
-3. In **Project Settings → API**, copy the project URL and the `anon` public key.
-4. Copy `supabase-config.example.js` to `supabase-config.js` and replace the two placeholders.
-5. Commit `supabase-config.js` to the repository. The anon key is intended for browser use; never add a service-role key.
-6. In **Authentication → URL Configuration**, add your GitHub Pages URL to Site URL and Redirect URLs.
-7. Enable email authentication and configure an SMTP provider before launch.
+1. Create a Supabase project and run `supabase-schema.sql` in a staging project first.
+2. Copy `supabase-config.example.js` to `supabase-config.js` and add only the project URL and browser `anon` key. Never commit a service-role key.
+3. Enable email confirmation, configure SMTP, and add only your real HTTPS site to Authentication URL Configuration.
+4. Create an administrator profile through a controlled SQL migration; never expose an admin signup option. The current starter function identifies the first admin using `company_name = 'Aganze Admin'`; replace this with a private admin role before launch.
+5. Review Storage limits and allowed MIME types for your use case.
 
-## Included flows
+## Trust workflow
 
-- Candidate/company email signup and login
-- Authenticated profile persistence
-- Authenticated simulation file uploads to private Storage
-- Simulation metadata in Postgres
-- Contact form messages in Postgres
-- Safe fallback to the local demo behavior when Supabase is not configured
+- Candidate profiles are private by default (`is_public = false`).
+- Companies must be verified before they can discover candidates or send contact requests.
+- Candidates publish evidence as `pending`; only an administrator can approve it.
+- Employers can discover only public candidate profiles and approved public evidence.
+- Uploaded files remain private. Do not create public Storage URLs; add a server-side signed-download flow after candidate consent.
+- Users can report profiles/evidence and block companies.
 
-## Production checklist
+## Frontend flows
 
-- Configure custom SMTP and email confirmation.
-- Add a real custom domain and HTTPS.
-- Review the RLS policies and privacy requirements before launch.
-- Replace demo dashboard content with queries to `profiles` and `simulations`.
-- Test password reset, email confirmation, upload limits, and account deletion.
+`supabase-app.js` enforces the UX side of these rules, but the database RLS policies are the actual security boundary. Test policies with separate candidate, unverified company, verified company, and admin accounts.
+
+## Launch checklist
+
+- Test signup, email confirmation, password reset, account deletion, and session expiry.
+- Test that a candidate cannot read another candidate's private profile or pending file.
+- Test that an unverified company cannot query discovery or create a contact request.
+- Add CAPTCHA/rate limiting to public contact forms and moderation notifications for reports.
+- Add a privacy policy, retention/deletion process, terms for employers, and a process for evidence disputes.
+- Use a custom domain with HTTPS and remove demo statistics from the landing page.
