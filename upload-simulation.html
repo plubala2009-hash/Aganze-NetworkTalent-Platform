@@ -1,3 +1,56 @@
 <!doctype html>
-<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="Upload a simulation."><title>Upload simulation | Aganze NetworkTalent Platform</title><link rel="stylesheet" href="css/style.css"></head>
-<body data-auth-required><header class="site-header"><a class="brand" href="index.html"><img class="brand-logo" src="AGANZE LOGO.png" alt="Aganze logo"></a><nav><a href="candidate-dashboard.html">Dashboard</a><a href="profile.html">Profile</a><a href="#" data-logout>Log out</a></nav></header><main><section class="page-hero narrow"><p class="eyebrow">UPLOAD WORK</p><h1>Showcase a simulation or project.</h1></section><section class="section"><form class="auth-form" data-supabase="upload"><label>Project title<input name="title" required></label><label>Category<input name="category"></label><label>Description<textarea name="description" rows="5" required></textarea></label><label>Upload file<input name="file" type="file" required></label><button class="button" type="submit">Publish evidence</button></form></section></main><footer><span>© 2026 Aganze NetworkTalent Platform</span></footer><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="supabase-config.js"></script><script src="supabase-app.js"></script></body></html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Upload a simulation.">
+  <meta name="theme-color" content="#123c35">
+  <title>Upload simulation | Aganze NetworkTalent Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .site-header { display:flex; align-items:center; justify-content:space-between; gap:1rem; }
+    .brand { display:inline-flex; align-items:center; gap:12px; text-decoration:none; color:#123c35; min-width:0; }
+    .brand-logo { display:block; width:auto; height:42px; flex-shrink:0; }
+    .brand-text { display:inline-block; font-size:0.96rem; font-weight:800; letter-spacing:0.04em; white-space:nowrap; line-height:1.2; color:#123c35; }
+    .brand-text strong { font-weight:900; }
+    @media (max-width:800px){ .brand-text{font-size:0.82rem; letter-spacing:0.02em;} }
+    @media (max-width:640px){ .site-header{align-items:center;} .brand{gap:8px;} .brand-logo{height:32px;} .brand-text{font-size:0.72rem; max-width:140px; white-space:normal; line-height:1.15;} }
+  </style>
+</head>
+<body data-auth-required>
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="Aganze NetworkTalent Platform home">
+      <img class="brand-logo" src="AGANZE LOGO.png" alt="Aganze NetworkTalent Platform logo">
+      <span class="brand-text"><strong>Aganze</strong> NetworkTalent Platform</span>
+    </a>
+    <button class="menu-toggle" aria-label="Open menu">☰</button>
+    <nav>
+      <a href="candidate-dashboard.html">Dashboard</a>
+      <a href="profile.html">Profile</a>
+      <a href="#" data-logout>Log out</a>
+    </nav>
+  </header>
+  <main>
+    <section class="page-hero narrow">
+      <p class="eyebrow">UPLOAD WORK</p>
+      <h1>Showcase a simulation or project.</h1>
+    </section>
+    <section class="section">
+      <form class="auth-form" data-supabase="upload">
+        <label>Project title<input name="title" required></label>
+        <label>Category<input name="category"></label>
+        <label>Description<textarea name="description" rows="5" required></textarea></label>
+        <label>Upload file<input name="file" type="file" required></label>
+        <button class="button" type="submit">Publish evidence</button>
+      </form>
+    </section>
+  </main>
+  <footer><span>© 2026 Aganze NetworkTalent Platform</span></footer>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+  <script src="supabase-app.js"></script>
+</body>
+</html>
