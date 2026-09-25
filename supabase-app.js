@@ -2,100 +2,33 @@
   'use strict';
   const cfg = window.AGANZE_SUPABASE_CONFIG;
   if (!cfg || !window.supabase) return;
-  const client = window.supabase.createClient(cfg.url, cfg.anonKey);
+  const client = supabase.createClient(cfg.url, cfg.anonKey);
   window.aganzeSupabase = client;
-
-  const alertUser = (text, error = false) => {
-    let el = document.querySelector('.site-alert');
-    if (!el) { el = document.createElement('div'); el.className = 'site-alert'; document.body.appendChild(el); }
-    el.textContent = text; el.dataset.type = error ? 'error' : 'success';
-  };
+  const alertUser = (text, error = false) => { let el = document.querySelector('.site-alert'); if (!el) { el = document.createElement('div'); el.className = 'site-alert'; document.body.appendChild(el); } el.textContent = text; el.dataset.type = error ? 'error' : 'success'; };
   const value = (form, name) => form.elements[name]?.value?.trim() || '';
   const esc = text => String(text ?? '').replace(/[&<>'"]/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', "'":'&#39;', '"':'&quot;' })[c]);
-  const redirectFor = role => role === 'company' ? 'company-dashboard.html' : 'candidate-dashboard.html';
   const currentUser = async () => (await client.auth.getUser()).data.user;
   const profileFor = async user => (await client.from('profiles').select('id,role,is_verified,verification_status,is_public').eq('id', user.id).maybeSingle()).data;
+  const requireUser = async () => { const user = await currentUser(); if (!user) { location.href = 'login.html'; throw new Error('Please log in.'); } return user; };
 
   async function signup(form) {
     const email = value(form, 'email'), password = value(form, 'password'), fullName = value(form, 'full_name');
     const role = value(form, 'role') === 'company' ? 'company' : 'candidate';
     if (!email || !fullName || password.length < 8) throw new Error('Use your name, a valid email, and a password of at least 8 characters.');
-    const { data, error } = await client.auth.signUp({ email, password, options: { data: { full_name: fullName, requested_role: role } } });
-    if (error) throw error;
-    if (data.session) {
-      const result = await client.from('profiles').upsert({ id: data.user.id, full_name: fullName, role });
-      if (result.error) throw result.error;
-      location.href = redirectFor(role);
-    } else alertUser('Account created. Check your email before logging in.');
+    const { data, error } = await client.auth.signUp({ email, password, options: { data: { full_name: fullName, requested_role: role } } }); if (error) throw error;
+    if (!data.session) return alertUser('Account created. Check your email before logging in.');
+    const result = await client.from('profiles').upsert({ id: data.user.id, full_name: fullName }); if (result.error) throw result.error; location.href = role === 'company' ? 'company-dashboard.html' : 'candidate-dashboard.html';
   }
-
-  async function login(form) {
-    const { data, error } = await client.auth.signInWithPassword({ email: value(form, 'email'), password: value(form, 'password') });
-    if (error) throw error;
-    const profile = await profileFor(data.user);
-    if (!profile) throw new Error('Your account profile is not ready yet. Please contact support.');
-    location.href = redirectFor(profile.role);
-  }
-
-  async function saveProfile(form) {
-    const user = await currentUser(); if (!user) return (location.href = 'login.html');
-    const skills = value(form, 'skills').split(',').map(s => s.trim().toLowerCase()).filter(Boolean).slice(0, 30);
-    const payload = { id: user.id, full_name: value(form, 'full_name'), headline: value(form, 'headline'), bio: value(form, 'bio'), location: value(form, 'location'), website: value(form, 'website'), skills, is_public: form.elements.is_public?.checked === true };
-    const { error } = await client.from('profiles').update(payload).eq('id', user.id);
-    if (error) throw error; alertUser('Profile saved.');
-  }
-
-  async function upload(form) {
-    const user = await currentUser(); if (!user) return (location.href = 'login.html');
-    const file = form.elements.file?.files?.[0];
-    const allowed = ['application/pdf','image/png','image/jpeg','text/plain','application/zip'];
-    if (!file || file.size > 10 * 1024 * 1024 || !allowed.includes(file.type)) throw new Error('Choose a PDF, image, text, or ZIP file up to 10 MB.');
-    const path = `${user.id}/${crypto.randomUUID()}-${file.name.replace(/[^a-zA-Z0-9._-]/g, '_')}`;
-    const uploaded = await client.storage.from('simulations').upload(path, file); if (uploaded.error) throw uploaded.error;
-    const result = await client.from('simulations').insert({ user_id: user.id, title: value(form, 'title'), description: value(form, 'description'), category: value(form, 'category'), issuer_name: value(form, 'issuer_name'), evidence_url: value(form, 'evidence_url'), file_path: path, file_name: file.name, is_public: form.elements.is_public?.checked === true }).select().single();
-    if (result.error) { await client.storage.from('simulations').remove([path]); throw result.error; }
-    form.reset(); alertUser('Evidence submitted for review. It will be visible only after approval.');
-  }
-
-  async function loadCompanyDashboard() {
-    const user = await currentUser(); if (!user) return (location.href = 'login.html');
-    const profile = await profileFor(user);
-    if (!profile || profile.role !== 'company') return (location.href = 'candidate-dashboard.html');
-    const el = document.querySelector('[data-candidate-count]');
-    const { count, error } = await client.from('public_candidate_profiles').select('id', { count: 'exact', head: true });
-    if (error) throw error; if (el) el.textContent = `${count || 0} public candidates available`;
-    document.querySelectorAll('[data-company-status]').forEach(node => node.textContent = profile.is_verified ? 'Verified company' : 'Verification pending');
-  }
-
-  async function loadFeed() {
-    const container = document.querySelector('[data-talent-list]'); if (!container) return;
-    const user = await currentUser();
-    const profile = user && await profileFor(user);
-    if (!profile || profile.role !== 'company' || !profile.is_verified) { container.innerHTML = '<p>Verified company accounts can explore candidate profiles. Please complete company verification.</p>'; return; }
-    const query = new URLSearchParams(location.search), skill = query.get('skill') || '';
-    let request = client.from('public_candidate_profiles').select('id,full_name,headline,bio,location,skills,is_verified').order('updated_at', { ascending: false }).limit(50);
-    if (skill) request = request.contains('skills', [skill.toLowerCase()]);
-    const { data, error } = await request; if (error) throw error;
-    container.innerHTML = data?.length ? data.map(p => `<article class="feature-card"><div class="card-icon">✦</div><h3>${esc(p.full_name || 'Aganze member')} ${p.is_verified ? '<small aria-label="verified">✓</small>' : ''}</h3><p>${esc(p.headline || p.bio || 'Candidate profile')}</p><p>${esc((p.skills || []).join(' · '))}</p><a class="button small" href="candidate-detail.html?id=${encodeURIComponent(p.id)}">View profile</a></article>`).join('') : '<p>No public candidates match this search yet.</p>';
-  }
-
-  async function loadCandidateDetail() {
-    const id = new URLSearchParams(location.search).get('id'); const container = document.querySelector('[data-candidate-detail]'); if (!id || !container) return;
-    const user = await currentUser(); const viewer = user && await profileFor(user);
-    if (!viewer || viewer.role !== 'company' || !viewer.is_verified) return (container.innerHTML = '<p>Only verified companies can view candidate details.</p>');
-    const { data: p, error } = await client.from('public_candidate_profiles').select('*').eq('id', id).single(); if (error) throw error;
-    const evidence = await client.from('simulations').select('id,title,description,category,issuer_name,completed_on,verification_status').eq('user_id', id).eq('is_public', true).eq('verification_status', 'approved');
-    container.innerHTML = `<h1>${esc(p.full_name)} ${p.is_verified ? '✓' : ''}</h1><p class="lead">${esc(p.headline || '')}</p><p>${esc(p.bio || '')}</p><p><strong>Location:</strong> ${esc(p.location || 'Not provided')}</p><p><strong>Skills:</strong> ${esc((p.skills || []).join(' · '))}</p><h2>Verified evidence</h2>${evidence.data?.length ? evidence.data.map(e => `<article class="feature-card"><h3>${esc(e.title)} <small>Verified</small></h3><p>${esc(e.description || '')}</p><p>${esc(e.category || '')} ${esc(e.issuer_name || '')}</p></article>`).join('') : '<p>No approved public evidence yet.</p>'}<form data-supabase="contact-request"><input type="hidden" name="candidate_id" value="${esc(id)}"><label>Subject<input name="subject" required maxlength="160"></label><label>Message<textarea name="message" required minlength="10" maxlength="5000"></textarea></label><button class="button" type="submit">Send contact request</button></form>`;
-  }
-
-  async function contactRequest(form) {
-    const user = await currentUser(); if (!user) return (location.href = 'login.html');
-    const profile = await profileFor(user); if (!profile?.is_verified || profile.role !== 'company') throw new Error('Only verified companies can contact candidates.');
-    const { error } = await client.from('contact_requests').insert({ company_id: user.id, candidate_id: value(form, 'candidate_id'), subject: value(form, 'subject'), message: value(form, 'message') });
-    if (error) throw error; form.reset(); alertUser('Request sent. The candidate can accept or decline it.');
-  }
-
-  document.addEventListener('submit', async event => { const form = event.target, action = form.dataset.supabase; if (!action) return; event.preventDefault(); const button = form.querySelector('button[type="submit"]'); if (button) button.disabled = true; try { await ({ signup, login, profile: saveProfile, upload, 'contact-request': contactRequest }[action])(form); } catch (error) { alertUser(error.message || 'Something went wrong.', true); } finally { if (button) button.disabled = false; } });
-  document.addEventListener('click', async event => { if (event.target.closest('[data-logout]')) { await client.auth.signOut(); location.href = 'index.html'; } });
-  (async () => { try { const page = document.body.dataset.page, user = await currentUser(); if (document.body.hasAttribute('data-auth-required') && !user) return (location.href = 'login.html'); if (page === 'company-dashboard') await loadCompanyDashboard(); if (page === 'talent-feed') await loadFeed(); if (page === 'candidate-detail') await loadCandidateDetail(); } catch (error) { alertUser(error.message || 'Unable to load this page.', true); } })();
+  async function login(form) { const { data, error } = await client.auth.signInWithPassword({ email: value(form, 'email'), password: value(form, 'password') }); if (error) throw error; const p = await profileFor(data.user); if (!p) throw new Error('Your profile is not ready yet.'); location.href = p.role === 'company' ? 'company-dashboard.html' : 'candidate-dashboard.html'; }
+  async function saveProfile(form) { const user = await requireUser(); const skills = value(form, 'skills').split(',').map(s => s.trim().toLowerCase()).filter(Boolean).slice(0, 30); const { error } = await client.from('profiles').update({ full_name:value(form,'full_name'), headline:value(form,'headline'), bio:value(form,'bio'), location:value(form,'location'), website:value(form,'website'), skills, is_public:form.elements.is_public?.checked === true }).eq('id', user.id); if (error) throw error; alertUser('Profile saved.'); }
+  async function upload(form) { const user = await requireUser(); const file = form.elements.file?.files?.[0]; const allowed = ['application/pdf','image/png','image/jpeg','text/plain','application/zip']; if (!file || file.size > 10*1024*1024 || !allowed.includes(file.type)) throw new Error('Choose a PDF, image, text, or ZIP file up to 10 MB.'); const path = `${user.id}/${crypto.randomUUID()}-${file.name.replace(/[^a-zA-Z0-9._-]/g,'_')}`; const up = await client.storage.from('simulations').upload(path,file); if (up.error) throw up.error; const result = await client.from('simulations').insert({ user_id:user.id,title:value(form,'title'),description:value(form,'description'),category:value(form,'category'),issuer_name:value(form,'issuer_name'),evidence_url:value(form,'evidence_url'),completed_on:value(form,'completed_on') || null,file_path:path,file_name:file.name,is_public:false }); if (result.error) { await client.storage.from('simulations').remove([path]); throw result.error; } form.reset(); alertUser('Evidence submitted for review.'); }
+  async function loadEvidence() { const user = await requireUser(); const box = document.querySelector('[data-evidence-list]'); if (!box) return; const { data, error } = await client.from('simulations').select('id,title,description,category,issuer_name,completed_on,verification_status,verification_notes,is_public,created_at').eq('user_id',user.id).order('created_at',{ascending:false}); if(error) throw error; box.innerHTML = data?.length ? data.map(e => `<article class="feature-card"><h3>${esc(e.title)}</h3><p>${esc(e.category || 'Uncategorized')} · ${esc(e.issuer_name || 'Issuer not supplied')}</p><p>Status: <strong>${esc(e.verification_status)}</strong>${e.verification_notes ? ` — ${esc(e.verification_notes)}` : ''}</p><p>${esc(e.description || '')}</p><label><input type="checkbox" data-publish-evidence="${esc(e.id)}" ${e.is_public ? 'checked' : ''}> Publish after approval</label></article>`).join('') : '<p>No evidence submitted yet.</p>'; }
+  async function setEvidenceVisibility(id, isPublic) { const user = await requireUser(); const { error } = await client.from('simulations').update({ is_public:isPublic }).eq('id',id).eq('user_id',user.id); if(error) throw error; alertUser(isPublic ? 'Evidence will be visible after approval.' : 'Evidence unpublished.'); }
+  async function loadAdmin() { const user = await requireUser(); const me = await profileFor(user); const { data: admin } = await client.from('admin_users').select('user_id').eq('user_id',user.id).maybeSingle(); if (!admin) { document.querySelector('main').innerHTML = '<section class="section"><h1>Access denied</h1><p>This area is restricted to Aganze administrators.</p></section>'; return; } const [companies,evidence] = await Promise.all([client.from('profiles').select('id,full_name,company_name,company_website,verification_status,created_at').eq('role','company').in('verification_status',['unverified','pending','rejected']).order('created_at',{ascending:true}),client.from('simulations').select('id,user_id,title,description,category,issuer_name,file_name,verification_status,created_at').eq('verification_status','pending').order('created_at',{ascending:true})]); if(companies.error) throw companies.error; if(evidence.error) throw evidence.error; const cq=document.querySelector('[data-company-queue]'), eq=document.querySelector('[data-evidence-queue]'); cq.innerHTML=companies.data?.length ? companies.data.map(p=>`<article class="feature-card"><h3>${esc(p.company_name || p.full_name)}</h3><p>${esc(p.company_website || 'Website not supplied')}</p><p>Status: ${esc(p.verification_status)}</p><button class="button small" data-review-profile="${esc(p.id)}" data-decision="verified">Verify company</button><button class="button small ghost" data-review-profile="${esc(p.id)}" data-decision="rejected">Reject</button></article>`).join(''):'<p>No company accounts awaiting review.</p>'; eq.innerHTML=evidence.data?.length ? evidence.data.map(e=>`<article class="feature-card"><h3>${esc(e.title)}</h3><p>${esc(e.category || '')} · ${esc(e.issuer_name || 'Issuer not supplied')}</p><p>${esc(e.description || '')}</p><p>File: ${esc(e.file_name || 'none')}</p><button class="button small" data-review-evidence="${esc(e.id)}" data-decision="approved">Approve evidence</button><button class="button small ghost" data-review-evidence="${esc(e.id)}" data-decision="rejected">Reject</button></article>`).join(''):'<p>No evidence awaiting review.</p>'; }
+  async function reviewProfile(id, decision) { const user=await requireUser(); const {data:admin}=await client.from('admin_users').select('user_id').eq('user_id',user.id).maybeSingle(); if(!admin) throw new Error('Administrator access required.'); const status=decision==='verified'?'verified':'rejected'; const {error}=await client.from('profiles').update({is_verified:status==='verified',verification_status:status}).eq('id',id); if(error) throw error; await client.from('verification_reviews').insert({reviewer_id:user.id,profile_id:id,decision:status==='verified'?'approved':'rejected'}); alertUser('Company review saved.'); await loadAdmin(); }
+  async function reviewEvidence(id, decision) { const user=await requireUser(); const {data:admin}=await client.from('admin_users').select('user_id').eq('user_id',user.id).maybeSingle(); if(!admin) throw new Error('Administrator access required.'); const status=decision==='approved'?'approved':'rejected'; const {error}=await client.from('simulations').update({verification_status:status,verification_notes:status==='approved'?'Reviewed by Aganze moderation.':'Please submit clearer or more complete evidence.'}).eq('id',id); if(error) throw error; await client.from('verification_reviews').insert({reviewer_id:user.id,simulation_id:id,decision}); alertUser('Evidence review saved.'); await loadAdmin(); }
+  document.addEventListener('submit',async e=>{const form=e.target,action=form.dataset.supabase;if(!action)return;e.preventDefault();const b=form.querySelector('button[type="submit"]');if(b)b.disabled=true;try{await ({signup,login,profile:saveProfile,upload}[action])(form);}catch(err){alertUser(err.message||'Something went wrong.',true);}finally{if(b)b.disabled=false;}});
+  document.addEventListener('change',async e=>{const id=e.target.dataset.publishEvidence;if(id)try{await setEvidenceVisibility(id,e.target.checked);}catch(err){alertUser(err.message,true);e.target.checked=!e.target.checked;}});
+  document.addEventListener('click',async e=>{const logout=e.target.closest('[data-logout]');if(logout){await client.auth.signOut();return location.href='index.html';}const p=e.target.closest('[data-review-profile]');const s=e.target.closest('[data-review-evidence]');try{if(p)await reviewProfile(p.dataset.reviewProfile,p.dataset.decision);if(s)await reviewEvidence(s.dataset.reviewEvidence,s.dataset.decision);}catch(err){alertUser(err.message,true);}});
+  (async()=>{try{const page=document.body.dataset.page,user=await currentUser();if(document.body.hasAttribute('data-auth-required')&&!user)return location.href='login.html';if(page==='candidate-evidence')await loadEvidence();if(page==='admin-dashboard')await loadAdmin();}catch(err){alertUser(err.message||'Unable to load page.',true);}})();
 })();
