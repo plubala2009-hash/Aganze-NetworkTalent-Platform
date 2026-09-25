@@ -10,11 +10,79 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <style>
+    .site-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--deep, #123c35);
+      min-width: 0;
+    }
+
+    .brand-logo {
+      display: block;
+      width: auto;
+      height: 42px;
+      flex-shrink: 0;
+    }
+
+    .brand-text {
+      display: inline-block;
+      font-size: 0.96rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: none;
+      white-space: nowrap;
+      line-height: 1.2;
+      color: var(--deep, #123c35);
+    }
+
+    .brand-text strong {
+      font-weight: 900;
+    }
+
+    @media (max-width: 800px) {
+      .brand-text {
+        font-size: 0.82rem;
+        letter-spacing: 0.02em;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .site-header {
+        align-items: center;
+      }
+
+      .brand {
+        gap: 8px;
+      }
+
+      .brand-logo {
+        height: 32px;
+      }
+
+      .brand-text {
+        font-size: 0.72rem;
+        max-width: 140px;
+        white-space: normal;
+        line-height: 1.15;
+      }
+    }
+  </style>
 </head>
 <body>
   <header class="site-header">
     <a class="brand" href="index.html" aria-label="Aganze NetworkTalent Platform home">
       <img class="brand-logo" src="AGANZE LOGO.png" alt="Aganze NetworkTalent Platform logo">
+      <span class="brand-text"><strong>Aganze</strong> NetworkTalent Platform</span>
     </a>
     <button class="menu-toggle" aria-label="Open menu">☰</button>
     <nav>
@@ -66,7 +134,7 @@
         <h2>Your hard work deserves to be seen.</h2>
       </div>
       <div>
-        <p>Thousands of people complete valuable challenges every day — yet most of that work never reaches employers. Aganze changes that by making practical experience visible, searchable, and useful for hiring teams.</p>
+        <p>Thousands of people complete valuable challenges every day — yet most of that work never reaches employers. Aganze changes that by making practical experience visible, searchable, and valuable.</p>
         <a href="about.html" class="text-link">Learn about our mission →</a>
       </div>
     </section>
