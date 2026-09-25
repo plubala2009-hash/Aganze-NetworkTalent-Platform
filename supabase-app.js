@@ -2,33 +2,80 @@
   'use strict';
   const cfg = window.AGANZE_SUPABASE_CONFIG;
   if (!cfg || !window.supabase) return;
-  const client = supabase.createClient(cfg.url, cfg.anonKey);
-  window.aganzeSupabase = client;
-  const alertUser = (text, error = false) => { let el = document.querySelector('.site-alert'); if (!el) { el = document.createElement('div'); el.className = 'site-alert'; document.body.appendChild(el); } el.textContent = text; el.dataset.type = error ? 'error' : 'success'; };
+  const client = window.supabase.createClient(cfg.url, cfg.anonKey);
   const value = (form, name) => form.elements[name]?.value?.trim() || '';
   const esc = text => String(text ?? '').replace(/[&<>'"]/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', "'":'&#39;', '"':'&quot;' })[c]);
+  const alertUser = (text, error = false) => { let el = document.querySelector('.site-alert'); if (!el) { el = document.createElement('div'); el.className = 'site-alert'; document.body.appendChild(el); } el.textContent = text; el.dataset.type = error ? 'error' : 'success'; };
   const currentUser = async () => (await client.auth.getUser()).data.user;
   const profileFor = async user => (await client.from('profiles').select('id,role,is_verified,verification_status,is_public').eq('id', user.id).maybeSingle()).data;
-  const requireUser = async () => { const user = await currentUser(); if (!user) { location.href = 'login.html'; throw new Error('Please log in.'); } return user; };
 
-  async function signup(form) {
-    const email = value(form, 'email'), password = value(form, 'password'), fullName = value(form, 'full_name');
-    const role = value(form, 'role') === 'company' ? 'company' : 'candidate';
-    if (!email || !fullName || password.length < 8) throw new Error('Use your name, a valid email, and a password of at least 8 characters.');
-    const { data, error } = await client.auth.signUp({ email, password, options: { data: { full_name: fullName, requested_role: role } } }); if (error) throw error;
-    if (!data.session) return alertUser('Account created. Check your email before logging in.');
-    const result = await client.from('profiles').upsert({ id: data.user.id, full_name: fullName }); if (result.error) throw result.error; location.href = role === 'company' ? 'company-dashboard.html' : 'candidate-dashboard.html';
+  async function loadCandidateRequests() {
+    const user = await currentUser(); if (!user) return location.href = 'login.html';
+    const container = document.querySelector('[data-request-list]'); if (!container) return;
+    const { data, error } = await client.from('contact_requests').select('id,company_id,subject,message,status,created_at,company:company_id(full_name,company_name)').eq('candidate_id', user.id).order('created_at', { ascending: false });
+    if (error) throw error;
+    const rows = data || [];
+    container.innerHTML = rows.length ? rows.map(item => `
+      <article class="feature-card">
+        <h3>${esc(item.company?.company_name || item.company?.full_name || 'Company')}</h3>
+        <p><strong>${esc(item.subject)}</strong></p>
+        <p>${esc(item.message)}</p>
+        <p>Status: ${esc(item.status)}</p>
+        <div>
+          <button data-request-action="accept" data-request-id="${item.id}" class="button small" type="button">Accept</button>
+          <button data-request-action="decline" data-request-id="${item.id}" class="button small ghost" type="button">Decline</button>
+          <button data-request-action="report" data-request-id="${item.id}" class="button small ghost" type="button">Report</button>
+        </div>
+      </article>
+    `).join('') : '<p>No employer requests yet.</p>';
   }
-  async function login(form) { const { data, error } = await client.auth.signInWithPassword({ email: value(form, 'email'), password: value(form, 'password') }); if (error) throw error; const p = await profileFor(data.user); if (!p) throw new Error('Your profile is not ready yet.'); location.href = p.role === 'company' ? 'company-dashboard.html' : 'candidate-dashboard.html'; }
-  async function saveProfile(form) { const user = await requireUser(); const skills = value(form, 'skills').split(',').map(s => s.trim().toLowerCase()).filter(Boolean).slice(0, 30); const { error } = await client.from('profiles').update({ full_name:value(form,'full_name'), headline:value(form,'headline'), bio:value(form,'bio'), location:value(form,'location'), website:value(form,'website'), skills, is_public:form.elements.is_public?.checked === true }).eq('id', user.id); if (error) throw error; alertUser('Profile saved.'); }
-  async function upload(form) { const user = await requireUser(); const file = form.elements.file?.files?.[0]; const allowed = ['application/pdf','image/png','image/jpeg','text/plain','application/zip']; if (!file || file.size > 10*1024*1024 || !allowed.includes(file.type)) throw new Error('Choose a PDF, image, text, or ZIP file up to 10 MB.'); const path = `${user.id}/${crypto.randomUUID()}-${file.name.replace(/[^a-zA-Z0-9._-]/g,'_')}`; const up = await client.storage.from('simulations').upload(path,file); if (up.error) throw up.error; const result = await client.from('simulations').insert({ user_id:user.id,title:value(form,'title'),description:value(form,'description'),category:value(form,'category'),issuer_name:value(form,'issuer_name'),evidence_url:value(form,'evidence_url'),completed_on:value(form,'completed_on') || null,file_path:path,file_name:file.name,is_public:false }); if (result.error) { await client.storage.from('simulations').remove([path]); throw result.error; } form.reset(); alertUser('Evidence submitted for review.'); }
-  async function loadEvidence() { const user = await requireUser(); const box = document.querySelector('[data-evidence-list]'); if (!box) return; const { data, error } = await client.from('simulations').select('id,title,description,category,issuer_name,completed_on,verification_status,verification_notes,is_public,created_at').eq('user_id',user.id).order('created_at',{ascending:false}); if(error) throw error; box.innerHTML = data?.length ? data.map(e => `<article class="feature-card"><h3>${esc(e.title)}</h3><p>${esc(e.category || 'Uncategorized')} · ${esc(e.issuer_name || 'Issuer not supplied')}</p><p>Status: <strong>${esc(e.verification_status)}</strong>${e.verification_notes ? ` — ${esc(e.verification_notes)}` : ''}</p><p>${esc(e.description || '')}</p><label><input type="checkbox" data-publish-evidence="${esc(e.id)}" ${e.is_public ? 'checked' : ''}> Publish after approval</label></article>`).join('') : '<p>No evidence submitted yet.</p>'; }
-  async function setEvidenceVisibility(id, isPublic) { const user = await requireUser(); const { error } = await client.from('simulations').update({ is_public:isPublic }).eq('id',id).eq('user_id',user.id); if(error) throw error; alertUser(isPublic ? 'Evidence will be visible after approval.' : 'Evidence unpublished.'); }
-  async function loadAdmin() { const user = await requireUser(); const me = await profileFor(user); const { data: admin } = await client.from('admin_users').select('user_id').eq('user_id',user.id).maybeSingle(); if (!admin) { document.querySelector('main').innerHTML = '<section class="section"><h1>Access denied</h1><p>This area is restricted to Aganze administrators.</p></section>'; return; } const [companies,evidence] = await Promise.all([client.from('profiles').select('id,full_name,company_name,company_website,verification_status,created_at').eq('role','company').in('verification_status',['unverified','pending','rejected']).order('created_at',{ascending:true}),client.from('simulations').select('id,user_id,title,description,category,issuer_name,file_name,verification_status,created_at').eq('verification_status','pending').order('created_at',{ascending:true})]); if(companies.error) throw companies.error; if(evidence.error) throw evidence.error; const cq=document.querySelector('[data-company-queue]'), eq=document.querySelector('[data-evidence-queue]'); cq.innerHTML=companies.data?.length ? companies.data.map(p=>`<article class="feature-card"><h3>${esc(p.company_name || p.full_name)}</h3><p>${esc(p.company_website || 'Website not supplied')}</p><p>Status: ${esc(p.verification_status)}</p><button class="button small" data-review-profile="${esc(p.id)}" data-decision="verified">Verify company</button><button class="button small ghost" data-review-profile="${esc(p.id)}" data-decision="rejected">Reject</button></article>`).join(''):'<p>No company accounts awaiting review.</p>'; eq.innerHTML=evidence.data?.length ? evidence.data.map(e=>`<article class="feature-card"><h3>${esc(e.title)}</h3><p>${esc(e.category || '')} · ${esc(e.issuer_name || 'Issuer not supplied')}</p><p>${esc(e.description || '')}</p><p>File: ${esc(e.file_name || 'none')}</p><button class="button small" data-review-evidence="${esc(e.id)}" data-decision="approved">Approve evidence</button><button class="button small ghost" data-review-evidence="${esc(e.id)}" data-decision="rejected">Reject</button></article>`).join(''):'<p>No evidence awaiting review.</p>'; }
-  async function reviewProfile(id, decision) { const user=await requireUser(); const {data:admin}=await client.from('admin_users').select('user_id').eq('user_id',user.id).maybeSingle(); if(!admin) throw new Error('Administrator access required.'); const status=decision==='verified'?'verified':'rejected'; const {error}=await client.from('profiles').update({is_verified:status==='verified',verification_status:status}).eq('id',id); if(error) throw error; await client.from('verification_reviews').insert({reviewer_id:user.id,profile_id:id,decision:status==='verified'?'approved':'rejected'}); alertUser('Company review saved.'); await loadAdmin(); }
-  async function reviewEvidence(id, decision) { const user=await requireUser(); const {data:admin}=await client.from('admin_users').select('user_id').eq('user_id',user.id).maybeSingle(); if(!admin) throw new Error('Administrator access required.'); const status=decision==='approved'?'approved':'rejected'; const {error}=await client.from('simulations').update({verification_status:status,verification_notes:status==='approved'?'Reviewed by Aganze moderation.':'Please submit clearer or more complete evidence.'}).eq('id',id); if(error) throw error; await client.from('verification_reviews').insert({reviewer_id:user.id,simulation_id:id,decision}); alertUser('Evidence review saved.'); await loadAdmin(); }
-  document.addEventListener('submit',async e=>{const form=e.target,action=form.dataset.supabase;if(!action)return;e.preventDefault();const b=form.querySelector('button[type="submit"]');if(b)b.disabled=true;try{await ({signup,login,profile:saveProfile,upload}[action])(form);}catch(err){alertUser(err.message||'Something went wrong.',true);}finally{if(b)b.disabled=false;}});
-  document.addEventListener('change',async e=>{const id=e.target.dataset.publishEvidence;if(id)try{await setEvidenceVisibility(id,e.target.checked);}catch(err){alertUser(err.message,true);e.target.checked=!e.target.checked;}});
-  document.addEventListener('click',async e=>{const logout=e.target.closest('[data-logout]');if(logout){await client.auth.signOut();return location.href='index.html';}const p=e.target.closest('[data-review-profile]');const s=e.target.closest('[data-review-evidence]');try{if(p)await reviewProfile(p.dataset.reviewProfile,p.dataset.decision);if(s)await reviewEvidence(s.dataset.reviewEvidence,s.dataset.decision);}catch(err){alertUser(err.message,true);}});
-  (async()=>{try{const page=document.body.dataset.page,user=await currentUser();if(document.body.hasAttribute('data-auth-required')&&!user)return location.href='login.html';if(page==='candidate-evidence')await loadEvidence();if(page==='admin-dashboard')await loadAdmin();}catch(err){alertUser(err.message||'Unable to load page.',true);}})();
+
+  async function respondToRequest(id, action) {
+    const user = await currentUser(); if (!user) return location.href = 'login.html';
+    const status = action === 'accept' ? 'accepted' : action === 'decline' ? 'declined' : 'pending';
+    if (action === 'report') {
+      const reason = prompt('Why are you reporting this request?');
+      if (!reason) return;
+      const { error } = await client.from('reports').insert({ reporter_id: user.id, reason: `Request ${id}: ${reason}` });
+      if (error) throw error;
+      return alertUser('Report submitted for review.');
+    }
+    const { error } = await client.from('contact_requests').update({ status }).eq('id', id).eq('candidate_id', user.id);
+    if (error) throw error;
+    alertUser(action === 'accept' ? 'Request accepted. The company can now contact you.' : 'Request declined.');
+    await loadCandidateRequests();
+  }
+
+  async function loadCompanyRequests() {
+    const user = await currentUser(); if (!user) return location.href = 'login.html';
+    const container = document.querySelector('[data-request-list]'); if (!container) return;
+    const { data, error } = await client.from('contact_requests').select('id,candidate_id,subject,message,status,created_at,candidate:candidate_id(full_name)').eq('company_id', user.id).order('created_at', { ascending: false });
+    if (error) throw error;
+    container.innerHTML = data?.length ? data.map(item => `
+      <article class="feature-card">
+        <h3>${esc(item.candidate?.full_name || 'Candidate')}</h3>
+        <p><strong>${esc(item.subject)}</strong></p>
+        <p>${esc(item.message)}</p>
+        <p>Status: ${esc(item.status)}</p>
+      </article>
+    `).join('') : '<p>No requests sent yet.</p>';
+  }
+
+  document.addEventListener('click', async event => {
+    const action = event.target.closest('[data-request-action]');
+    if (action) { await respondToRequest(action.dataset.requestId, action.dataset.requestAction); return; }
+    if (event.target.closest('[data-logout]')) { await client.auth.signOut(); location.href = 'index.html'; }
+  });
+
+  (async () => {
+    try {
+      const page = document.body.dataset.page;
+      const user = await currentUser();
+      if (!user) return location.href = 'login.html';
+      if (page === 'candidate-requests') await loadCandidateRequests();
+      if (page === 'contact-requests') await loadCompanyRequests();
+    } catch (error) {
+      alertUser(error.message || 'Unable to load requests.', true);
+    }
+  })();
 })();
