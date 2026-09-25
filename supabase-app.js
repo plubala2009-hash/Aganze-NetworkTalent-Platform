@@ -200,7 +200,7 @@
         <div>
           <button data-request-action="accept" data-request-id="${item.id}" class="button small" type="button">Accept</button>
           <button data-request-action="decline" data-request-id="${item.id}" class="button small ghost" type="button">Decline</button>
-          <button data-request-action="report" data-request-id="${item.id}" class="button small ghost" type="button">Report</button>
+          <button data-request-action="report" data-request-id="${item.id}" data-company-id="${item.company_id}" class="button small ghost" type="button">Report</button>
         </div>
       </article>
     `).join('') : '<p>No employer requests yet.</p>';
@@ -221,12 +221,16 @@
     `).join('') : '<p>No requests sent yet.</p>';
   }
 
-  async function respondToRequest(id, action) {
+  async function respondToRequest(id, action, companyId = null) {
     const user = await currentUser(); if (!user) return location.href = 'login.html';
     if (action === 'report') {
       const reason = prompt('Why are you reporting this request?');
-      if (!reason) return;
-      const { error } = await client.from('reports').insert({ reporter_id: user.id, reason: `Request ${id}: ${reason}` });
+      if (!reason || !companyId) return;
+      const { error } = await client.from('reports').insert({
+        reporter_id: user.id,
+        reported_profile_id: companyId,
+        reason: `Contact request ${id}: ${reason}`
+      });
       if (error) throw error;
       return alertUser('Report submitted for review.');
     }
@@ -255,7 +259,7 @@
   document.addEventListener('click', async event => {
     const requestAction = event.target.closest('[data-request-action]');
     if (requestAction) {
-      await respondToRequest(requestAction.dataset.requestId, requestAction.dataset.requestAction);
+      await respondToRequest(requestAction.dataset.requestId, requestAction.dataset.requestAction, requestAction.dataset.companyId || null);
       return;
     }
     if (event.target.closest('[data-logout]')) {

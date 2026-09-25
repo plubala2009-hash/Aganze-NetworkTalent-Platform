@@ -30,13 +30,18 @@ alter table public.company_contact_status enable row level security;
 create policy company_messages_participants on public.company_messages for select using (
   sender_id = auth.uid() or recipient_id = auth.uid()
 );
+
+drop policy if exists company_messages_insert on public.company_messages;
 create policy company_messages_insert on public.company_messages for insert with check (
-  sender_id = auth.uid() and exists (
+  sender_id = auth.uid()
+  and exists (
     select 1 from public.contact_requests r
-    where r.id = request_id and (
-      (r.company_id = sender_id and r.candidate_id = recipient_id)
-      or (r.candidate_id = sender_id and r.company_id = recipient_id)
-    )
+    where r.id = request_id
+      and r.status = 'accepted'
+      and (
+        (r.company_id = sender_id and r.candidate_id = recipient_id)
+        or (r.candidate_id = sender_id and r.company_id = recipient_id)
+      )
   )
 );
 
