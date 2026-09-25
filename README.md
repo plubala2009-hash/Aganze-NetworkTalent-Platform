@@ -9,7 +9,7 @@
 
 Showcase job simulations and talent profiles
 
-Aganze NetworkTalent Platform is a skills‑first talent discovery system that helps job seekers showcase the job simulations, virtual internships, and hands‑on training programs they’ve completed and allows companies to discover talent based on proven ability, not just resumes.
+Aganze NetworkTalent Platform is a skills‑first talent discovery system that helps job seekers showcase the job simulations, virtual internships, and hands‑on training programs they’ve completed in a way that is easy for employers to evaluate.
 
 ---
 
@@ -73,7 +73,11 @@ Aganze NetworkTalent Platform changes that by making practical experience visibl
 
 ## 🌐 Live Demo
 
-(After enabling GitHub Pages)
+The project is published on GitHub Pages here:
+
+https://plubala2009-hash.github.io/Aganze-NetworkTalent-Platform/
+
+---
 
 MIT License
 
