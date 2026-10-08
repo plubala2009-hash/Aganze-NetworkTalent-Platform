@@ -1,15 +1,32 @@
 # Aganze NetworkTalent Platform  
 <p align="center">
   <img src="https://img.shields.io/badge/status-active-brightgreen" />
-  <img src="https://img.shields.io/badge/license-MIT-blue" />
+  <img src="https://img.shields.io/badge/license-All%20Rights%20Reserved-red" />
   <img src="https://img.shields.io/badge/made%20with-HTML%20%7C%20CSS%20%7C%20JS-orange" />
   <img src="https://img.shields.io/badge/platform-GitHub%20Pages-lightgrey" />
-  <img src="https://img.shields.io/badge/contributions-welcome-success" />
+  <img src="https://img.shields.io/badge/copyright-2026%20Patrick%20Lubala-blue" />
 </p>
 
-Showcase job simulations and talent profiles
+> **⚠️ PROPRIETARY & CONFIDENTIAL** — Showcase job simulations and talent profiles
 
-Aganze NetworkTalent Platform is a skills‑first talent discovery system that helps job seekers showcase the job simulations, virtual internships, and hands‑on training programs they’ve completed in a way that is easy for employers to evaluate.
+---
+
+## ⚖️ INTELLECTUAL PROPERTY NOTICE
+
+**This repository contains proprietary and confidential intellectual property owned by Patrick Lubala.**
+
+🔒 **All Rights Reserved.** You may NOT:
+- ❌ Clone, fork, or copy this repository
+- ❌ Use this code or design as a foundation for your own project
+- ❌ Modify, adapt, or create derivative works
+- ❌ Distribute, share, or sublicense this work
+- ❌ Use commercially without explicit written permission
+
+✅ **Permitted:** View for educational/evaluation purposes with explicit permission only.
+
+**Violations will be pursued under applicable copyright law.**
+
+📧 **Permission requests:** lubala2004@yahoo.fr
 
 ---
 
@@ -67,7 +84,7 @@ Aganze NetworkTalent Platform changes that by making practical experience visibl
 - **CSS3**  
 - **JavaScript (optional)**  
 - **GitHub Pages** for hosting  
-- **Bubble.io** (original prototype)
+- **Supabase** for database & authentication
 
 ---
 
@@ -79,45 +96,39 @@ https://plubala2009-hash.github.io/Aganze-NetworkTalent-Platform/
 
 ---
 
-MIT License
+## 📋 Copyright & License
 
-Copyright (c) 2026 Patrick Lubala
+**Copyright © 2026 Patrick Lubala. All Rights Reserved.**
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the “Software”), to deal
-in the Software without restriction, including without limitation the rights  
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell  
-copies of the Software, and to permit persons to whom the Software is  
-furnished to do so, subject to the following conditions:
+This work is protected under international copyright law. Unauthorized reproduction, distribution, modification, or commercial use is prohibited.
 
-The above copyright notice and this permission notice shall be included in  
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR  
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,  
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE  
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER  
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,  
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN  
-THE SOFTWARE.
-
-# Contributing to Aganze NetworkTalent Platform
-
-Thank you for your interest in contributing!  
-This project aims to help job seekers showcase job simulations and help employers discover talent based on proven skills.
-
-We welcome contributions of all kinds — code, documentation, design, ideas, and feedback.
+See [COPYRIGHT.md](./COPYRIGHT.md) and [LICENSE](./LICENSE) for full terms and conditions.
 
 ---
 
-## 🧭 Getting Started
+# Contributing to Aganze NetworkTalent Platform
 
-1. Fork the repository  
-2. Clone your fork  
-3. Create a new branch  
-4. Make your changes  
-5. Commit with clear messages  
-6. Open a Pull Request
+Thank you for your interest! Before contributing, please understand:
+
+**This is a proprietary project.** Contributions are welcome only from authorized collaborators.
+
+If you're interested in contributing:
+
+1. **Contact the owner first** — Email lubala2004@yahoo.fr
+2. **Request written permission** — Explain your proposed contribution
+3. **Sign a contributor agreement** — We may require a CLA (Contributor License Agreement)
+4. **Upon approval**, follow the guidelines below
+
+---
+
+## 🧭 Getting Started (Authorized Contributors Only)
+
+1. Request access from the owner
+2. Clone your fork (only if authorized)
+3. Create a new branch with a descriptive name
+4. Make your changes
+5. Commit with clear, descriptive messages
+6. Open a Pull Request with detailed description
 
 ---
 
@@ -128,45 +139,76 @@ We welcome contributions of all kinds — code, documentation, design, ideas, an
 - Keep components modular  
 - Avoid inline styles when possible  
 - Comment complex logic clearly
+- Document your changes
 
 ### File Structure
 Follow the existing structure:
-
+- `*.html` — Page templates
+- `styles.css` — Styling
+- `script.js` — Frontend logic
+- `supabase-*.js` — Backend integration
+- `img/` — Images and assets
+- `css/` — Additional stylesheets (if used)
 
 ---
 
 ## 🧪 Testing
 
 Before submitting a PR:
-- Ensure all pages load correctly  
-- Check mobile responsiveness  
-- Validate HTML & CSS  
-- Test navigation links  
-- Confirm GitHub Pages builds successfully  
+- ✅ Ensure all pages load correctly  
+- ✅ Check mobile responsiveness  
+- ✅ Validate HTML & CSS  
+- ✅ Test navigation links  
+- ✅ Confirm GitHub Pages builds successfully  
+- ✅ Test user workflows end-to-end
 
 ---
 
 ## 📬 Pull Requests
 
-Your PR should include:
-- A clear description of the change  
+Your PR must include:
+- A clear, descriptive title
+- Detailed description of changes and why
 - Screenshots (if UI changes)  
-- A reference to any related issues  
+- Reference to any related issues  
+- Confirmation that you have permission to contribute
 
-We review PRs within 48–72 hours.
-
----
-
-## 💬 Questions?
-
-Open an issue or contact:
-
-**Patrick Lubala**  
-Founder — Aganze NetworkTalent Platform  
-Email: lubala2004@yahoo.fr
+**Review timeline:** 48–72 hours for authorized contributors.
 
 ---
 
-## 🤝 Thank You
+## 🚫 What We Do NOT Accept
 
-Your contributions help make this platform better for job seekers and employers everywhere.
+- Pull requests from unauthorized users
+- Code that violates this copyright notice
+- Attempts to circumvent IP protections
+- Commercial forks or derivatives
+- Redistribution of this work
+
+---
+
+## 💬 Questions or Concerns?
+
+**Owner & Founder:**  
+Patrick Lubala  
+📧 Email: lubala2004@yahoo.fr
+
+---
+
+## 🤝 Legal
+
+By viewing, accessing, or using this repository, you agree to:
+1. Respect all intellectual property rights
+2. Not reproduce or distribute this work
+3. Not create derivative works
+4. Not use commercially
+5. Comply with applicable copyright law
+
+**Unauthorized use will be pursued legally.**
+
+For full legal terms, see [LICENSE](./LICENSE) and [COPYRIGHT.md](./COPYRIGHT.md).
+
+---
+
+**Last Updated:** October 2026  
+**Repository Status:** 🔒 Proprietary — All Rights Reserved
