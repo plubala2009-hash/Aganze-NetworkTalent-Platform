@@ -1,27 +1,121 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>About | Aganze NetworkTalent Platform</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Aganze NetworkTalent Platform aide les personnes à transformer leurs compétences concrètes en vraies opportunités.">
+  <meta name="theme-color" content="#123c35">
+  <title>À propos | Aganze NetworkTalent Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .site-header { display:flex; align-items:center; justify-content:space-between; gap:1rem; }
+    .brand { display:inline-flex; align-items:center; gap:12px; text-decoration:none; color:#123c35; min-width:0; }
+    .brand-logo { display:block; width:auto; height:42px; flex-shrink:0; }
+    .brand-text { display:inline-block; font-size:0.96rem; font-weight:800; letter-spacing:0.04em; white-space:nowrap; line-height:1.2; color:#123c35; }
+    .brand-text strong { font-weight:900; }
+    @media (max-width:800px){ .brand-text{font-size:0.82rem; letter-spacing:0.02em;} }
+    @media (max-width:640px){ .site-header{align-items:center;} .brand{gap:8px;} .brand-logo{height:32px;} .brand-text{font-size:0.72rem; max-width:140px; white-space:normal; line-height:1.15;} }
+  </style>
 </head>
 <body>
   <header class="site-header">
-    <a class="brand" href="index.html"><img src="AGANZE LOGO.png" alt="Aganze"><span class="brand-text" data-i18n="brand-text">Aganze NetworkTalent Platform</span></a>
+    <a class="brand" href="index.html" aria-label="Aganze NetworkTalent Platform accueil">
+      <img class="brand-logo" src="AGANZE LOGO.png" alt="Aganze NetworkTalent Platform logo">
+      <span class="brand-text"><strong>Aganze</strong> NetworkTalent Platform</span>
+    </a>
+    <button class="menu-toggle" aria-label="Ouvrir le menu">☰</button>
     <nav>
-      <a href="index.html">Home</a>
-      <a href="how-it-works.html" data-i18n="nav.explore">How it works</a>
-      <button id="lang-toggle" class="button small">FR</button>
+      <a href="about.html">À propos</a>
+      <a href="how-it-works.html">Comment ça marche</a>
+      <a href="talent-feed.html">Explorer les talents</a>
+      <a href="contact.html">Contact</a>
+      <a class="nav-login" href="login.html">Connexion</a>
+      <a class="button small" href="signup.html">S'inscrire</a>
     </nav>
   </header>
+
   <main>
     <section class="page-hero">
-      <h1 data-i18n="about.title">Why Aganze exists</h1>
-      <p>We make practical experience visible: simulations, labs, projects and real work that employers can trust.</p>
+      <p class="eyebrow">À PROPOS D'AGANZE</p>
+      <h1>Nous aidons les vraies compétences à se distinguer.</h1>
+      <p class="lead">Aganze NetworkTalent Platform met en relation les personnes dotées de compétences concrètes et les opportunités qui reflètent réellement ce qu'elles savent faire.</p>
+    </section>
+
+    <section class="section split">
+      <div>
+        <p class="eyebrow">POURQUOI CELA EXISTE</p>
+        <h2>Trop de personnes sont jugées uniquement par leurs diplômes.</h2>
+      </div>
+      <div>
+        <p>Le recrutement traditionnel oublie souvent les travaux concrets, les simulations, les stages, les projets freelance et les autres preuves de compétences. Aganze rend cette expérience visible, recherchable et utile pour les employeurs.</p>
+      </div>
+    </section>
+
+    <section class="section tinted">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">CE QUE NOUS CRÉONS</p>
+          <h2>Un meilleur lien entre talents et opportunités.</h2>
+        </div>
+      </div>
+      <div class="cards three">
+        <article class="feature-card">
+          <div class="card-icon">◎</div>
+          <h3>Pour les candidats</h3>
+          <p>Présentez vos travaux pratiques, simulations et expériences pertinentes dans un seul profil clair.</p>
+        </article>
+        <article class="feature-card">
+          <div class="card-icon">⌕</div>
+          <h3>Pour les employeurs</h3>
+          <p>Découvrez les personnes selon leurs compétences réelles, pas seulement selon leur CV ou leur titre.</p>
+        </article>
+        <article class="feature-card">
+          <div class="card-icon">✓</div>
+          <h3>Pour les équipes</h3>
+          <p>Associez les talents aux missions avec plus de clarté, de rapidité et de confiance.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">NOTRE APPROCHE</p>
+          <h2>Un recrutement axé sur les compétences, pensé pour le monde réel.</h2>
+        </div>
+      </div>
+      <div class="cards three">
+        <article class="feature-card dark">
+          <h3>Preuves visibles</h3>
+          <p>Nous mettons en avant ce que les gens ont construit, appris et démontré.</p>
+        </article>
+        <article class="feature-card dark">
+          <h3>Meilleure découverte</h3>
+          <p>Les employeurs peuvent chercher par compétence, type de projet et niveau de préparation.</p>
+        </article>
+        <article class="feature-card dark">
+          <h3>Correspondances utiles</h3>
+          <p>Nous créons un chemin plus pertinent entre l'expérience pratique et les opportunités.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section cta">
+      <p class="eyebrow">COMMENCEZ PAR VOTRE HISTOIRE</p>
+      <h2>Montrez ce que vous savez faire.</h2>
+      <a class="button" href="signup.html">Créer votre profil</a>
     </section>
   </main>
-  <footer><p data-i18n="footer.copyright">© 2026 Aganze NetworkTalent Platform</p></footer>
-  <script src="js/i18n.js"></script>
+
+  <footer>
+    <span>© 2026 Aganze NetworkTalent Platform</span>
+    <div>
+      <a href="privacy.html">Confidentialité</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </footer>
 </body>
 </html>

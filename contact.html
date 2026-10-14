@@ -1,36 +1,38 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Contact | Aganze</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <header class="site-header">
-    <a class="brand" href="index.html"><img src="AGANZE LOGO.png" alt="Aganze"><span class="brand-text" data-i18n="brand-text">Aganze NetworkTalent Platform</span></a>
+    <a class="brand" href="index.html"><img src="AGANZE LOGO.png" alt="Aganze"><span class="brand-text">Aganze NetworkTalent Platform</span></a>
     <nav>
-      <a href="index.html">Home</a>
-      <button id="lang-toggle" class="button small">FR</button>
+      <a href="index.html">Accueil</a>
+      <a href="about.html">À propos</a>
+      <a href="how-it-works.html">Comment ça marche</a>
+      <a href="talent-feed.html">Explorer les talents</a>
+      <a href="login.html">Connexion</a>
     </nav>
   </header>
 
   <main>
     <section class="page-hero">
       <h1>Contact</h1>
-      <p>If you have questions or need support, send us a message.</p>
+      <p>Si vous avez des questions ou besoin d'assistance, envoyez-nous un message.</p>
     </section>
 
     <section class="section">
       <form id="contact-form" method="post" action="#">
-        <label>Name<input name="name" type="text" required data-i18n-placeholder="nav.contact"></label>
-        <label>Email<input name="email" type="email" required placeholder="you@example.com"></label>
+        <label>Nom<input name="name" type="text" required></label>
+        <label>E-mail<input name="email" type="email" required placeholder="vous@exemple.com"></label>
         <label>Message<textarea name="message" rows="6" required></textarea></label>
-        <button class="button" type="submit" data-i18n="button.send">Send message</button>
+        <button class="button" type="submit">Envoyer le message</button>
       </form>
     </section>
   </main>
-  <footer><p data-i18n="footer.copyright">© 2026 Aganze NetworkTalent Platform</p></footer>
-  <script src="js/i18n.js"></script>
+  <footer><p>© 2026 Aganze NetworkTalent Platform</p></footer>
 </body>
 </html>

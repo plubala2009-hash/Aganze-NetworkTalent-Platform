@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Create an Aganze NetworkTalent Platform account.">
+  <meta name="description" content="Créer un compte Aganze NetworkTalent Platform.">
   <meta name="theme-color" content="#123c35">
-  <title>Sign up | Aganze NetworkTalent Platform</title>
+  <title>Inscription | Aganze NetworkTalent Platform</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -22,34 +22,32 @@
 </head>
 <body>
   <header class="site-header">
-    <a class="brand" href="index.html" aria-label="Aganze NetworkTalent Platform home">
+    <a class="brand" href="index.html" aria-label="Aganze NetworkTalent Platform accueil">
       <img class="brand-logo" src="AGANZE LOGO.png" alt="Aganze NetworkTalent Platform logo">
-      <span class="brand-text" data-i18n="brand-text"><strong>Aganze</strong> NetworkTalent Platform</span>
+      <span class="brand-text"><strong>Aganze</strong> NetworkTalent Platform</span>
     </a>
-    <button class="menu-toggle" aria-label="Open menu">☰</button>
+    <button class="menu-toggle" aria-label="Ouvrir le menu">☰</button>
     <nav>
-      <a href="about.html" data-i18n="nav.about">About</a>
-      <a href="talent-feed.html" data-i18n="nav.explore">Explore talent</a>
-      <a href="login.html" data-i18n="nav.login">Log in</a>
-      <button id="lang-toggle" class="button small" aria-label="Change language">FR</button>
+      <a href="about.html">À propos</a>
+      <a href="talent-feed.html">Explorer les talents</a>
+      <a href="login.html">Connexion</a>
     </nav>
   </header>
   <main>
     <section class="page-hero narrow">
-      <p class="eyebrow" data-i18n="eyebrow.join">JOIN AGANZE</p>
-      <h1 data-i18n="hero.title.join">Build your profile and get discovered.</h1>
+      <p class="eyebrow">REJOIGNEZ AGANZE</p>
+      <h1>Créez votre profil et faites-vous repérer.</h1>
     </section>
     <section class="section">
       <form class="auth-form" data-supabase="signup">
-        <label>Full name<input name="full_name" type="text" required autocomplete="name"></label>
-        <label>Email address<input name="email" type="email" required autocomplete="email"></label>
-        <label>Password<input name="password" type="password" required minlength="6" autocomplete="new-password"></label>
-        <label>I am signing up as<select name="role"><option value="candidate">Candidate</option><option value="company">Employer</option></select></label>
-        <button class="button" type="submit" data-i18n="button.signup">Join free</button>
+        <label>Nom complet<input name="full_name" type="text" required autocomplete="name"></label>
+        <label>Adresse e-mail<input name="email" type="email" required autocomplete="email"></label>
+        <label>Mot de passe<input name="password" type="password" required minlength="6" autocomplete="new-password"></label>
+        <label>Je m'inscris en tant que<select name="role"><option value="candidate">Candidat</option><option value="company">Employeur</option></select></label>
+        <button class="button" type="submit">S'inscrire</button>
       </form>
     </section>
   </main>
-  <footer><span data-i18n="footer.copyright">© 2026 Aganze NetworkTalent Platform</span></footer>
-  <script src="js/i18n.js"></script>
+  <footer><span>© 2026 Aganze NetworkTalent Platform</span></footer>
 </body>
 </html>

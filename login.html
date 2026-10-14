@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Log in to Aganze NetworkTalent Platform.">
+  <meta name="description" content="Se connecter à Aganze NetworkTalent Platform.">
   <meta name="theme-color" content="#123c35">
-  <title>Log in | Aganze NetworkTalent Platform</title>
+  <title>Connexion | Aganze NetworkTalent Platform</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -22,33 +22,31 @@
 </head>
 <body>
   <header class="site-header">
-    <a class="brand" href="index.html" aria-label="Aganze NetworkTalent Platform home">
+    <a class="brand" href="index.html" aria-label="Aganze NetworkTalent Platform accueil">
       <img class="brand-logo" src="AGANZE LOGO.png" alt="Aganze NetworkTalent Platform logo">
-      <span class="brand-text" data-i18n="brand-text"><strong>Aganze</strong> NetworkTalent Platform</span>
+      <span class="brand-text"><strong>Aganze</strong> NetworkTalent Platform</span>
     </a>
-    <button class="menu-toggle" aria-label="Open menu">☰</button>
+    <button class="menu-toggle" aria-label="Ouvrir le menu">☰</button>
     <nav>
-      <a href="about.html" data-i18n="nav.about">About</a>
-      <a href="talent-feed.html" data-i18n="nav.explore">Explore talent</a>
-      <a href="signup.html" data-i18n="nav.signup">Join free</a>
-      <button id="lang-toggle" class="button small" aria-label="Change language">FR</button>
+      <a href="about.html">À propos</a>
+      <a href="talent-feed.html">Explorer les talents</a>
+      <a href="signup.html">S'inscrire</a>
     </nav>
   </header>
   <main>
     <section class="page-hero narrow">
-      <p class="eyebrow">WELCOME BACK</p>
-      <h1 data-i18n="hero.welcome.title">Log in to your account.</h1>
+      <p class="eyebrow">BON RETOUR</p>
+      <h1>Connectez-vous à votre compte.</h1>
     </section>
     <section class="section">
       <form class="auth-form" data-supabase="login">
-        <label>Email address<input name="email" type="email" required autocomplete="email"></label>
-        <label>Password<input name="password" type="password" required autocomplete="current-password"></label>
-        <button class="button" type="submit" data-i18n="button.login">Log in</button>
-        <p class="form-link"><a href="signup.html">Need an account? Create one.</a></p>
+        <label>Adresse e-mail<input name="email" type="email" required autocomplete="email"></label>
+        <label>Mot de passe<input name="password" type="password" required autocomplete="current-password"></label>
+        <button class="button" type="submit">Connexion</button>
+        <p class="form-link"><a href="signup.html">Besoin d'un compte ? Créez-en un.</a></p>
       </form>
     </section>
   </main>
-  <footer><span data-i18n="footer.copyright">© 2026 Aganze NetworkTalent Platform</span></footer>
-  <script src="js/i18n.js"></script>
+  <footer><span>© 2026 Aganze NetworkTalent Platform</span></footer>
 </body>
 </html>
