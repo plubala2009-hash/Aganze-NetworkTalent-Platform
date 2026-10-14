@@ -11,74 +11,16 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <style>
-    .site-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-    }
-    .brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      text-decoration: none;
-      color: var(--deep, #123c35);
-      min-width: 0;
-    }
-    .brand-logo {
-      display: block;
-      width: auto;
-      height: 42px;
-      flex-shrink: 0;
-    }
-    .brand-text {
-      display: inline-block;
-      font-size: 0.96rem;
-      font-weight: 800;
-      letter-spacing: 0.04em;
-      text-transform: none;
-      white-space: nowrap;
-      line-height: 1.2;
-      color: var(--deep, #123c35);
-    }
-    .brand-text strong {
-      font-weight: 900;
-    }
-    .lang-switcher {
-      display: flex;
-      gap: 0.5rem;
-      align-items: center;
-      margin-left: 0.5rem;
-    }
-    .lang-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 52px;
-      padding: 0.55rem 0.8rem;
-      border-radius: 999px;
-      border: 1px solid rgba(18, 60, 53, 0.2);
-      background: rgba(18, 60, 53, 0.04);
-      color: var(--deep);
-      font-weight: 700;
-      cursor: pointer;
-      text-decoration: none;
-    }
-    .lang-btn.active {
-      background: var(--deep);
-      color: white;
-      border-color: var(--deep);
-    }
-    @media (max-width: 800px) {
-      .brand-text { font-size: 0.82rem; letter-spacing: 0.02em; }
-    }
-    @media (max-width: 640px) {
-      .site-header { align-items: center; }
-      .brand { gap: 8px; }
-      .brand-logo { height: 32px; }
-      .brand-text { font-size: 0.72rem; max-width: 140px; white-space: normal; line-height: 1.15; }
-      .lang-switcher { margin-left: 0; }
-    }
+    .site-header { display:flex; align-items:center; justify-content:space-between; gap:1rem; }
+    .brand { display:inline-flex; align-items:center; gap:12px; text-decoration:none; color:var(--deep,#123c35); min-width:0; }
+    .brand-logo { display:block; width:auto; height:42px; flex-shrink:0; }
+    .brand-text { display:inline-block; font-size:0.96rem; font-weight:800; letter-spacing:0.04em; text-transform:none; white-space:nowrap; line-height:1.2; color:var(--deep,#123c35); }
+    .brand-text strong { font-weight:900; }
+    .lang-switcher { display:flex; gap:0.5rem; align-items:center; margin-left:0.5rem; }
+    .lang-btn { display:inline-flex; align-items:center; justify-content:center; min-width:52px; padding:0.55rem 0.8rem; border-radius:999px; border:1px solid rgba(18,60,53,0.2); background:rgba(18,60,53,0.04); color:var(--deep); font-weight:700; cursor:pointer; text-decoration:none; }
+    .lang-btn.active { background:var(--deep); color:#fff; border-color:var(--deep); }
+    @media (max-width:800px){ .brand-text{font-size:0.82rem; letter-spacing:0.02em;} }
+    @media (max-width:640px){ .site-header{align-items:center;} .brand{gap:8px;} .brand-logo{height:32px;} .brand-text{font-size:0.72rem; max-width:140px; white-space:normal; line-height:1.15;} }
   </style>
 </head>
 <body>
@@ -98,6 +40,7 @@
       <span class="lang-switcher">
         <a href="index.html" class="lang-btn active" aria-label="English version">EN</a>
         <a href="index-fr.html" class="lang-btn" aria-label="French version">FR</a>
+        <a href="index-es.html" class="lang-btn" aria-label="Spanish version">ES</a>
       </span>
     </nav>
   </header>
@@ -153,7 +96,6 @@
           <h2>From proof of skill to the right opportunity.</h2>
         </div>
       </div>
-
       <div class="cards three">
         <article class="feature-card dark">
           <div class="card-icon">◌</div>
@@ -161,14 +103,12 @@
           <p>Build a public profile around your simulations, internships, and real work evidence.</p>
           <a href="signup.html">Create a profile</a>
         </article>
-
         <article class="feature-card">
           <div class="card-icon">✦</div>
           <h3>For employers</h3>
           <p>Discover talent by results, not just CVs. View project work, evidence, and skill depth.</p>
           <a href="talent-feed.html">Browse talent</a>
         </article>
-
         <article class="feature-card">
           <div class="card-icon">✓</div>
           <h3>For teams</h3>

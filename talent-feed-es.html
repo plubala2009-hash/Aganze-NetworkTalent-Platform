@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Aganze NetworkTalent Platform presenta perfiles de talento.">
+  <meta name="theme-color" content="#123c35">
+  <title>Explorar talentos | Aganze NetworkTalent Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .site-header { display:flex; align-items:center; justify-content:space-between; gap:1rem; }
+    .brand { display:inline-flex; align-items:center; gap:12px; text-decoration:none; color:#123c35; min-width:0; }
+    .brand-logo { display:block; width:auto; height:42px; flex-shrink:0; }
+    .brand-text { display:inline-block; font-size:0.96rem; font-weight:800; letter-spacing:0.04em; white-space:nowrap; line-height:1.2; color:#123c35; }
+    .brand-text strong { font-weight:900; }
+    .lang-switcher { display:flex; gap:0.5rem; align-items:center; margin-left:0.5rem; }
+    .lang-btn { display:inline-flex; align-items:center; justify-content:center; min-width:52px; padding:0.55rem 0.8rem; border-radius:999px; border:1px solid rgba(18,60,53,0.2); background:rgba(18,60,53,0.04); color:var(--deep); font-weight:700; cursor:pointer; text-decoration:none; }
+    .lang-btn.active { background:var(--deep); color:#fff; border-color:var(--deep); }
+    @media (max-width:800px){ .brand-text{font-size:0.82rem; letter-spacing:0.02em;} }
+    @media (max-width:640px){ .site-header{align-items:center;} .brand{gap:8px;} .brand-logo{height:32px;} .brand-text{font-size:0.72rem; max-width:140px; white-space:normal; line-height:1.15;} }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="index-es.html" aria-label="Aganze NetworkTalent Platform inicio">
+      <img class="brand-logo" src="AGANZE LOGO.png" alt="Aganze NetworkTalent Platform logo">
+      <span class="brand-text"><strong>Aganze</strong> NetworkTalent Platform</span>
+    </a>
+    <button class="menu-toggle" aria-label="Abrir menú">☰</button>
+    <nav>
+      <a href="about-es.html">Acerca de</a>
+      <a href="contact-es.html">Contacto</a>
+      <span class="lang-switcher">
+        <a href="talent-feed.html" class="lang-btn" aria-label="Versión en inglés">EN</a>
+        <a href="talent-feed-fr.html" class="lang-btn" aria-label="Versión en francés">FR</a>
+        <a href="talent-feed-es.html" class="lang-btn active" aria-label="Versión en español">ES</a>
+      </span>
+    </nav>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <h1>Explorar talentos</h1>
+      <p>Explora perfiles públicos y evidencias de proyectos para encontrar candidatos con experiencia real.</p>
+    </section>
+
+    <section class="section">
+      <div class="cards" id="talent-list">Cargando…</div>
+    </section>
+  </main>
+  <footer><p>© 2026 Aganze NetworkTalent Platform</p></footer>
+</body>
+</html>
