@@ -1,102 +1,32 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Learn how Aganze NetworkTalent Platform helps people showcase practical skills and get discovered for real opportunities.">
-  <meta name="theme-color" content="#123c35">
-  <title>How it works | Aganze NetworkTalent Platform</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
-  <style>
-    .site-header { display:flex; align-items:center; justify-content:space-between; gap:1rem; }
-    .brand { display:inline-flex; align-items:center; gap:12px; text-decoration:none; color:#123c35; min-width:0; }
-    .brand-logo { display:block; width:auto; height:42px; flex-shrink:0; }
-    .brand-text { display:inline-block; font-size:0.96rem; font-weight:800; letter-spacing:0.04em; white-space:nowrap; line-height:1.2; color:#123c35; }
-    .brand-text strong { font-weight:900; }
-    @media (max-width:800px){ .brand-text{font-size:0.82rem; letter-spacing:0.02em;} }
-    @media (max-width:640px){ .site-header{align-items:center;} .brand{gap:8px;} .brand-logo{height:32px;} .brand-text{font-size:0.72rem; max-width:140px; white-space:normal; line-height:1.15;} }
-  </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>How it works | Aganze</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <header class="site-header">
-    <a class="brand" href="index.html" aria-label="Aganze NetworkTalent Platform home">
-      <img class="brand-logo" src="AGANZE LOGO.png" alt="Aganze NetworkTalent Platform logo">
-      <span class="brand-text"><strong>Aganze</strong> NetworkTalent Platform</span>
-    </a>
-    <button class="menu-toggle" aria-label="Open menu">☰</button>
+    <a class="brand" href="index.html"><img src="AGANZE LOGO.png" alt="Aganze"><span class="brand-text" data-i18n="brand-text">Aganze NetworkTalent Platform</span></a>
     <nav>
-      <a href="about.html">About</a>
-      <a href="how-it-works.html">How it works</a>
-      <a href="talent-feed.html">Explore talent</a>
-      <a href="contact.html">Contact</a>
-      <a class="nav-login" href="login.html">Log in</a>
-      <a class="button small" href="signup.html">Join free</a>
+      <a href="index.html">Home</a>
+      <a href="about.html" data-i18n="nav.about">About</a>
+      <button id="lang-toggle" class="button small">FR</button>
     </nav>
   </header>
 
   <main>
     <section class="page-hero">
-      <p class="eyebrow">HOW IT WORKS</p>
-      <h1>From practical work to meaningful opportunity.</h1>
-      <p class="lead">Aganze brings together real-world evidence, skills discovery, and intelligent matching to help talent and employers connect more effectively.</p>
-    </section>
-
-    <section class="section">
-      <div class="cards three">
-        <article class="feature-card dark">
-          <div class="card-icon">1</div>
-          <h3>Create your profile</h3>
-          <p>Build a profile around your simulations, projects, and hands-on experience.</p>
-        </article>
-        <article class="feature-card dark">
-          <div class="card-icon">2</div>
-          <h3>Show what you can do</h3>
-          <p>Upload evidence of your work and highlight the capabilities that matter most.</p>
-        </article>
-        <article class="feature-card dark">
-          <div class="card-icon">3</div>
-          <h3>Get discovered</h3>
-          <p>Employers can search for relevant skills and connect with candidates who are ready to contribute.</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="section split">
-      <div>
-        <p class="eyebrow">FOR CANDIDATES</p>
-        <h2>Turn proof into visibility.</h2>
-      </div>
-      <div>
-        <p>You can show your results, explain your process, and make your strengths easy to understand. Instead of being limited to a résumé, you get a profile that reflects what you can actually do.</p>
-      </div>
-    </section>
-
-    <section class="section split">
-      <div>
-        <p class="eyebrow">FOR EMPLOYERS</p>
-        <h2>Find ready talent faster.</h2>
-      </div>
-      <div>
-        <p>Search by skill, project type, or domain and review evidence of practical ability before the interview even begins. It helps you focus on readiness, not guesswork.</p>
-      </div>
-    </section>
-
-    <section class="section cta">
-      <p class="eyebrow">READY TO START?</p>
-      <h2>Join the platform today.</h2>
-      <a class="button" href="signup.html">Create an account</a>
+      <h1 data-i18n="page.join.title">How it works</h1>
+      <ol>
+        <li>Create your profile and add skills.</li>
+        <li>Upload job simulation evidence and certificates.</li>
+        <li>Employers discover and contact candidates directly.</li>
+      </ol>
     </section>
   </main>
-
-  <footer>
-    <span>© 2026 Aganze NetworkTalent Platform</span>
-    <div>
-      <a href="privacy.html">Privacy</a>
-      <a href="contact.html">Contact</a>
-    </div>
-  </footer>
+  <footer><p data-i18n="footer.copyright">© 2026 Aganze NetworkTalent Platform</p></footer>
+  <script src="js/i18n.js"></script>
 </body>
 </html>

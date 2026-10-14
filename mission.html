@@ -1,83 +1,27 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Learn about the mission of Aganze NetworkTalent Platform.">
-  <meta name="theme-color" content="#123c35">
-  <title>Mission | Aganze NetworkTalent Platform</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
-  <style>
-    .site-header { display:flex; align-items:center; justify-content:space-between; gap:1rem; }
-    .brand { display:inline-flex; align-items:center; gap:12px; text-decoration:none; color:#123c35; min-width:0; }
-    .brand-logo { display:block; width:auto; height:42px; flex-shrink:0; }
-    .brand-text { display:inline-block; font-size:0.96rem; font-weight:800; letter-spacing:0.04em; white-space:nowrap; line-height:1.2; color:#123c35; }
-    .brand-text strong { font-weight:900; }
-    @media (max-width:800px){ .brand-text{font-size:0.82rem; letter-spacing:0.02em;} }
-    @media (max-width:640px){ .site-header{align-items:center;} .brand{gap:8px;} .brand-logo{height:32px;} .brand-text{font-size:0.72rem; max-width:140px; white-space:normal; line-height:1.15;} }
-  </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mission | Aganze</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <header class="site-header">
-    <a class="brand" href="index.html" aria-label="Aganze NetworkTalent Platform home">
-      <img class="brand-logo" src="AGANZE LOGO.png" alt="Aganze NetworkTalent Platform logo">
-      <span class="brand-text"><strong>Aganze</strong> NetworkTalent Platform</span>
-    </a>
-    <button class="menu-toggle" aria-label="Open menu">☰</button>
+    <a class="brand" href="index.html"><img src="AGANZE LOGO.png" alt="Aganze"><span class="brand-text" data-i18n="brand-text">Aganze NetworkTalent Platform</span></a>
     <nav>
-      <a href="about.html">About</a>
-      <a href="how-it-works.html">How it works</a>
-      <a href="talent-feed.html">Explore talent</a>
-      <a href="contact.html">Contact</a>
-      <a class="nav-login" href="login.html">Log in</a>
-      <a class="button small" href="signup.html">Join free</a>
+      <a href="index.html">Home</a>
+      <button id="lang-toggle" class="button small">FR</button>
     </nav>
   </header>
 
   <main>
     <section class="page-hero">
-      <p class="eyebrow">OUR MISSION</p>
-      <h1>Make practical skills visible.</h1>
-      <p class="lead">We believe talent should be recognized for what it can do, not only for where it comes from or what a résumé says.</p>
-    </section>
-
-    <section class="section split">
-      <div>
-        <p class="eyebrow">OUR PURPOSE</p>
-        <h2>We create better matches between people and opportunity.</h2>
-      </div>
-      <div>
-        <p>Aganze exists to help professionals and learners turn practical experience into traction. We support people who have built skills through projects, internships, simulations, collaboration, and real work.</p>
-      </div>
-    </section>
-
-    <section class="section tinted">
-      <div class="cards three">
-        <article class="feature-card">
-          <h3>Recognition</h3>
-          <p>We help real capability become visible and credible.</p>
-        </article>
-        <article class="feature-card">
-          <h3>Access</h3>
-          <p>We connect candidates with the right opportunities faster.</p>
-        </article>
-        <article class="feature-card">
-          <h3>Trust</h3>
-          <p>We make hiring and discovery more grounded in evidence.</p>
-        </article>
-      </div>
+      <h1 data-i18n="mission.title">Our mission</h1>
+      <p>To bridge the gap between proven skills and real hiring opportunities by giving job seekers visibility and companies access to motivated, job‑ready talent.</p>
     </section>
   </main>
-
-  <footer>
-    <span>© 2026 Aganze NetworkTalent Platform</span>
-    <div>
-      <a href="privacy.html">Privacy</a>
-      <a href="contact.html">Contact</a>
-    </div>
-  </footer>
+  <footer><p data-i18n="footer.copyright">© 2026 Aganze NetworkTalent Platform</p></footer>
+  <script src="js/i18n.js"></script>
 </body>
 </html>

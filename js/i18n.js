@@ -1,8 +1,9 @@
 // js/i18n.js
-// Simple client-side language switcher. Adds a FR/EN toggle and translates elements with `data-i18n`.
+// Expanded client-side language switcher with comprehensive translations (EN/FR).
 (function(){
   const translations = {
     en: {
+      // brand & nav
       'brand-text': 'Aganze NetworkTalent Platform',
       'nav.about': 'About',
       'nav.explore': 'Explore talent',
@@ -13,16 +14,30 @@
       'nav.profile': 'Profile',
       'nav.contact': 'Contact',
       'nav.logout': 'Log out',
-      'eyebrow.join': 'JOIN AGANZE',
-      'hero.title.join': 'Build your profile and get discovered.',
-      'hero.welcome.title': 'Log in to your account.',
-      'hero.profile.title': 'Tell your story and show your work.',
-      'footer.copyright': '© 2026 Aganze NetworkTalent Platform',
+      // homepage
+      'hero.tagline': 'Showcase skills. Unlock opportunities.',
+      'hero.cta.primary': 'Join free',
+      'hero.cta.secondary': 'Explore talent',
+      // about / mission
+      'about.title': 'Why Aganze exists',
+      'mission.title': 'Our mission',
+      // forms & buttons
       'button.publish': 'Publish evidence',
       'button.login': 'Log in',
-      'button.signup': 'Join free'
+      'button.signup': 'Join free',
+      'button.send': 'Send message',
+      // pages
+      'page.join.eyebrow': 'JOIN AGANZE',
+      'page.join.title': 'Build your profile and get discovered.',
+      'page.login.title': 'Log in to your account.',
+      'page.profile.title': 'Tell your story and show your work.',
+      'page.upload.title': 'Showcase a simulation or project.',
+      // privacy / legal
+      'footer.copyright': '© 2026 Aganze NetworkTalent Platform',
+      'privacy.title': 'Your information matters.'
     },
     fr: {
+      // brand & nav
       'brand-text': 'Aganze Plateforme Talents',
       'nav.about': 'À propos',
       'nav.explore': 'Explorer les talents',
@@ -33,14 +48,27 @@
       'nav.profile': 'Profil',
       'nav.contact': 'Contact',
       'nav.logout': 'Déconnexion',
-      'eyebrow.join': 'REJOIGNEZ AGANZE',
-      'hero.title.join': 'Créez votre profil et faites-vous repérer.',
-      'hero.welcome.title': 'Connectez-vous à votre compte.',
-      'hero.profile.title': 'Racontez votre histoire et montrez votre travail.',
-      'footer.copyright': '© 2026 Aganze Plateforme Talents',
+      // homepage
+      'hero.tagline': 'Montrez vos compétences. Débloquez des opportunités.',
+      'hero.cta.primary': 'S’inscrire',
+      'hero.cta.secondary': 'Explorer',
+      // about / mission
+      'about.title': 'Pourquoi Aganze existe',
+      'mission.title': 'Notre mission',
+      // forms & buttons
       'button.publish': 'Publier la preuve',
       'button.login': 'Se connecter',
-      'button.signup': 'S’inscrire'
+      'button.signup': 'S’inscrire',
+      'button.send': 'Envoyer le message',
+      // pages
+      'page.join.eyebrow': 'REJOIGNEZ AGANZE',
+      'page.join.title': 'Créez votre profil et faites-vous repérer.',
+      'page.login.title': 'Connectez-vous à votre compte.',
+      'page.profile.title': 'Racontez votre histoire et montrez votre travail.',
+      'page.upload.title': 'Présentez une simulation ou un projet.',
+      // privacy / legal
+      'footer.copyright': '© 2026 Aganze Plateforme Talents',
+      'privacy.title': 'Vos informations sont importantes.'
     }
   };
 
@@ -58,7 +86,14 @@
     document.querySelectorAll('[data-i18n]').forEach(el => {
       const key = el.getAttribute('data-i18n');
       const text = dict[key];
-      if (!text) return;
+      if (text === undefined) return; // leave existing text if not found
+
+      // For inputs/textareas use placeholder when data-i18n-placeholder present
+      if (el.hasAttribute('data-i18n-placeholder')){
+        el.placeholder = dict[el.getAttribute('data-i18n-placeholder')] || el.placeholder;
+        return;
+      }
+
       if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
         if (el.placeholder) el.placeholder = text;
       } else if (el.tagName === 'BUTTON' || el.tagName === 'A') {
