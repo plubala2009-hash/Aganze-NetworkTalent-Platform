@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Contactez Aganze NetworkTalent Platform.">
+  <meta name="theme-color" content="#123c35">
+  <title>Contact | Aganze NetworkTalent Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .site-header { display:flex; align-items:center; justify-content:space-between; gap:1rem; }
+    .brand { display:inline-flex; align-items:center; gap:12px; text-decoration:none; color:#123c35; min-width:0; }
+    .brand-logo { display:block; width:auto; height:42px; flex-shrink:0; }
+    .brand-text { display:inline-block; font-size:0.96rem; font-weight:800; letter-spacing:0.04em; white-space:nowrap; line-height:1.2; color:#123c35; }
+    .brand-text strong { font-weight:900; }
+    .lang-switcher { display:flex; gap:0.5rem; align-items:center; margin-left:0.5rem; }
+    .lang-btn { display:inline-flex; align-items:center; justify-content:center; min-width:52px; padding:0.55rem 0.8rem; border-radius:999px; border:1px solid rgba(18,60,53,0.2); background:rgba(18,60,53,0.04); color:var(--deep); font-weight:700; cursor:pointer; text-decoration:none; }
+    .lang-btn.active { background:var(--deep); color:white; border-color:var(--deep); }
+    @media (max-width:800px){ .brand-text{font-size:0.82rem; letter-spacing:0.02em;} }
+    @media (max-width:640px){ .site-header{align-items:center;} .brand{gap:8px;} .brand-logo{height:32px;} .brand-text{font-size:0.72rem; max-width:140px; white-space:normal; line-height:1.15;} }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="index-fr.html" aria-label="Aganze NetworkTalent Platform accueil">
+      <img class="brand-logo" src="AGANZE LOGO.png" alt="Aganze NetworkTalent Platform logo">
+      <span class="brand-text"><strong>Aganze</strong> NetworkTalent Platform</span>
+    </a>
+    <button class="menu-toggle" aria-label="Ouvrir le menu">☰</button>
+    <nav>
+      <a href="about-fr.html">À propos</a>
+      <a href="how-it-works-fr.html">Comment ça marche</a>
+      <a href="talent-feed-fr.html">Explorer les talents</a>
+      <a href="contact-fr.html">Contact</a>
+      <a class="nav-login" href="login-fr.html">Connexion</a>
+      <a class="button small" href="signup-fr.html">S'inscrire</a>
+      <span class="lang-switcher">
+        <a href="contact.html" class="lang-btn" aria-label="English version">EN</a>
+        <a href="contact-fr.html" class="lang-btn active" aria-label="French version">FR</a>
+      </span>
+    </nav>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <h1>Contact</h1>
+      <p>Si vous avez des questions ou besoin d'assistance, envoyez-nous un message.</p>
+    </section>
+
+    <section class="section">
+      <form id="contact-form" method="post" action="#">
+        <label>Nom<input name="name" type="text" required></label>
+        <label>E-mail<input name="email" type="email" required placeholder="vous@exemple.com"></label>
+        <label>Message<textarea name="message" rows="6" required></textarea></label>
+        <button class="button" type="submit">Envoyer le message</button>
+      </form>
+    </section>
+  </main>
+  <footer><p>© 2026 Aganze NetworkTalent Platform</p></footer>
+</body>
+</html>
