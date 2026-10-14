@@ -24,20 +24,21 @@
   <header class="site-header">
     <a class="brand" href="index.html" aria-label="Aganze NetworkTalent Platform home">
       <img class="brand-logo" src="AGANZE LOGO.png" alt="Aganze NetworkTalent Platform logo">
-      <span class="brand-text"><strong>Aganze</strong> NetworkTalent Platform</span>
+      <span class="brand-text" data-i18n="brand-text"><strong>Aganze</strong> NetworkTalent Platform</span>
     </a>
     <button class="menu-toggle" aria-label="Open menu">☰</button>
     <nav>
-      <a href="talent-feed.html">Explore talent</a>
-      <a href="contact.html">Contact</a>
-      <a href="#" data-logout>Log out</a>
+      <a href="talent-feed.html" data-i18n="nav.explore">Explore talent</a>
+      <a href="contact.html" data-i18n="nav.contact">Contact</a>
+      <a href="#" data-logout data-i18n="nav.logout">Log out</a>
+      <button id="lang-toggle" class="button small" aria-label="Change language">FR</button>
     </nav>
   </header>
   <main>
     <section class="page-hero">
-      <p class="eyebrow">EMPLOYER DASHBOARD</p>
-      <h1>Find talent with proven capability.</h1>
-      <p class="lead">Search candidates by practical experience.</p>
+      <p class="eyebrow" data-i18n="hero.company.eyebrow">EMPLOYER DASHBOARD</p>
+      <h1 data-i18n="hero.company.title">Find talent with proven capability.</h1>
+      <p class="lead" data-i18n="hero.company.lead">Search candidates by practical experience.</p>
     </section>
     <section class="section tinted">
       <div class="cards three">
@@ -46,10 +47,3 @@
         <article class="feature-card"><h3>Your account</h3><p data-user-email>Loading…</p></article>
       </div>
     </section>
-  </main>
-  <footer><span>© 2026 Aganze NetworkTalent Platform</span></footer>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="supabase-config.js"></script>
-  <script src="supabase-app.js"></script>
-</body>
-</html>

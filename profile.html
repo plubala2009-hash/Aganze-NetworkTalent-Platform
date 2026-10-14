@@ -24,25 +24,27 @@
   <header class="site-header">
     <a class="brand" href="index.html" aria-label="Aganze NetworkTalent Platform home">
       <img class="brand-logo" src="AGANZE LOGO.png" alt="Aganze NetworkTalent Platform logo">
-      <span class="brand-text"><strong>Aganze</strong> NetworkTalent Platform</span>
+      <span class="brand-text" data-i18n="brand-text"><strong>Aganze</strong> NetworkTalent Platform</span>
     </a>
     <button class="menu-toggle" aria-label="Open menu">☰</button>
     <nav>
-      <a href="candidate-dashboard.html">Dashboard</a>
-      <a href="upload-simulation.html">Upload work</a>
-      <a href="talent-feed.html">Explore talent</a>
-      <a href="#" data-logout>Log out</a>
+      <a href="candidate-dashboard.html" data-i18n="nav.dashboard">Dashboard</a>
+      <a href="upload-simulation.html" data-i18n="nav.upload">Upload work</a>
+      <a href="talent-feed.html" data-i18n="nav.explore">Explore talent</a>
+      <a href="#" data-logout data-i18n="nav.logout">Log out</a>
+      <button id="lang-toggle" class="button small" aria-label="Change language">FR</button>
     </nav>
   </header>
   <main>
     <section class="page-hero">
-      <p class="eyebrow">YOUR PROFILE</p>
-      <h1>Tell your story and show your work.</h1>
+      <p class="eyebrow" data-i18n="hero.profile.eyebrow">YOUR PROFILE</p>
+      <h1 data-i18n="hero.profile.title">Tell your story and show your work.</h1>
     </section>
   </main>
-  <footer><span>© 2026 Aganze NetworkTalent Platform</span></footer>
+  <footer><span data-i18n="footer.copyright">© 2026 Aganze NetworkTalent Platform</span></footer>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase-config.js"></script>
   <script src="supabase-app.js"></script>
+  <script src="js/i18n.js"></script>
 </body>
 </html>

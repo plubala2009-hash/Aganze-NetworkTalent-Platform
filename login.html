@@ -24,34 +24,31 @@
   <header class="site-header">
     <a class="brand" href="index.html" aria-label="Aganze NetworkTalent Platform home">
       <img class="brand-logo" src="AGANZE LOGO.png" alt="Aganze NetworkTalent Platform logo">
-      <span class="brand-text"><strong>Aganze</strong> NetworkTalent Platform</span>
+      <span class="brand-text" data-i18n="brand-text"><strong>Aganze</strong> NetworkTalent Platform</span>
     </a>
     <button class="menu-toggle" aria-label="Open menu">☰</button>
     <nav>
-      <a href="about.html">About</a>
-      <a href="talent-feed.html">Explore talent</a>
-      <a href="signup.html">Join free</a>
+      <a href="about.html" data-i18n="nav.about">About</a>
+      <a href="talent-feed.html" data-i18n="nav.explore">Explore talent</a>
+      <a href="signup.html" data-i18n="nav.signup">Join free</a>
+      <button id="lang-toggle" class="button small" aria-label="Change language">FR</button>
     </nav>
   </header>
   <main>
     <section class="page-hero narrow">
       <p class="eyebrow">WELCOME BACK</p>
-      <h1>Log in to your account.</h1>
+      <h1 data-i18n="hero.welcome.title">Log in to your account.</h1>
     </section>
     <section class="section">
       <form class="auth-form" data-supabase="login">
         <label>Email address<input name="email" type="email" required autocomplete="email"></label>
         <label>Password<input name="password" type="password" required autocomplete="current-password"></label>
-        <button class="button" type="submit">Log in</button>
+        <button class="button" type="submit" data-i18n="button.login">Log in</button>
         <p class="form-link"><a href="signup.html">Need an account? Create one.</a></p>
       </form>
     </section>
   </main>
-  <footer>
-    <span>© 2026 Aganze NetworkTalent Platform</span>
-  </footer>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="supabase-config.js"></script>
-  <script src="supabase-app.js"></script>
+  <footer><span data-i18n="footer.copyright">© 2026 Aganze NetworkTalent Platform</span></footer>
+  <script src="js/i18n.js"></script>
 </body>
 </html>

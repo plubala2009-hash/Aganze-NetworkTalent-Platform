@@ -24,19 +24,20 @@
   <header class="site-header">
     <a class="brand" href="index.html" aria-label="Aganze NetworkTalent Platform home">
       <img class="brand-logo" src="AGANZE LOGO.png" alt="Aganze NetworkTalent Platform logo">
-      <span class="brand-text"><strong>Aganze</strong> NetworkTalent Platform</span>
+      <span class="brand-text" data-i18n="brand-text"><strong>Aganze</strong> NetworkTalent Platform</span>
     </a>
     <button class="menu-toggle" aria-label="Open menu">☰</button>
     <nav>
-      <a href="about.html">About</a>
-      <a href="talent-feed.html">Explore talent</a>
-      <a href="login.html">Log in</a>
+      <a href="about.html" data-i18n="nav.about">About</a>
+      <a href="talent-feed.html" data-i18n="nav.explore">Explore talent</a>
+      <a href="login.html" data-i18n="nav.login">Log in</a>
+      <button id="lang-toggle" class="button small" aria-label="Change language">FR</button>
     </nav>
   </header>
   <main>
     <section class="page-hero narrow">
-      <p class="eyebrow">JOIN AGANZE</p>
-      <h1>Build your profile and get discovered.</h1>
+      <p class="eyebrow" data-i18n="eyebrow.join">JOIN AGANZE</p>
+      <h1 data-i18n="hero.title.join">Build your profile and get discovered.</h1>
     </section>
     <section class="section">
       <form class="auth-form" data-supabase="signup">
@@ -44,16 +45,11 @@
         <label>Email address<input name="email" type="email" required autocomplete="email"></label>
         <label>Password<input name="password" type="password" required minlength="6" autocomplete="new-password"></label>
         <label>I am signing up as<select name="role"><option value="candidate">Candidate</option><option value="company">Employer</option></select></label>
-        <button class="button" type="submit">Create account</button>
-        <p class="form-link"><a href="login.html">Already have an account? Log in.</a></p>
+        <button class="button" type="submit" data-i18n="button.signup">Join free</button>
       </form>
     </section>
   </main>
-  <footer>
-    <span>© 2026 Aganze NetworkTalent Platform</span>
-  </footer>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="supabase-config.js"></script>
-  <script src="supabase-app.js"></script>
+  <footer><span data-i18n="footer.copyright">© 2026 Aganze NetworkTalent Platform</span></footer>
+  <script src="js/i18n.js"></script>
 </body>
 </html>
